@@ -12,14 +12,16 @@ public class Item {
     private String type;
     private String location;
     private BigDecimal price;
+    private int count;
 
 
-
-    public Item(String name, String type, String location, BigDecimal price){
+    public Item(String name, String type, String location, BigDecimal price, int count){
         this.name = name;
         this.type= type;
         this.location = location;
         this.price= price;
+        this.count = count;
+
 
     }
 //Getters
@@ -56,20 +58,5 @@ public class Item {
         this.type = type;
     }
 
-    public void getItem(String location, String name, BigDecimal price, String type) throws FileNotFoundException {
-        File itemsFile = new File("java-capstone-module-1-team-3/vendingmachine.csv");
-        if (itemsFile.exists()) {
-            try (Scanner scanner = new Scanner(itemsFile)) {
-                while (scanner.hasNextLine()) {
-                    String itemLine = scanner.nextLine();
-                    String[] newItemInfo = itemLine.split("\\|");
-                    newItemInfo[0] = getLocation();
-                    newItemInfo[1] = getName();
-                    newItemInfo[2] = String.valueOf(getPrice());
-                    newItemInfo[3] = getType();
 
-                }
-            }
-        }
-    }
 }

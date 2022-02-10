@@ -1,32 +1,35 @@
 package com.techelevator;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.util.Map;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 public class VendingMachine {
-    private int itemsLeftInSlot;
-    private Map<Item,String> slots = new TreeMap<>();
 
-    private VendingMachine(int itemsLeftInSlot, Map<Item,String> slots){
-        this.itemsLeftInSlot= 5;
-        this.slots = slots;
+    private Map<String, Item> slots = new TreeMap<>();
 
+    public void restockMachine(String fileName) throws FileNotFoundException {
+        File itemsFile = new File(fileName);
+        if (itemsFile.exists()) {
+            try (Scanner scanner = new Scanner(itemsFile)) {
+                while (scanner.hasNextLine()) {
+                    String itemLine = scanner.nextLine();
+                    String[] newItemInfo = itemLine.split("\\|");
+                    Item item = new Item(newItemInfo[1],newItemInfo[3], newItemInfo[0], new BigDecimal(newItemInfo[2]), 5);
+                    slots.put(newItemInfo[0], item);
+                }
+            }
+        }
     }
 
-    public int getItemsLeftInSlot() {
-        return itemsLeftInSlot;
-    }
-
-    public Map<Item, String> getSlots() {
-
+    public Map<String, Item> getSlots() {
         return slots;
-
     }
 
-    public void setItemsLeftInSlot(int itemsLeftInSlot) {
-        this.itemsLeftInSlot = itemsLeftInSlot;
-    }
+
 
 
 }
