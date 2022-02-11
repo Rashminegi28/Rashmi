@@ -20,7 +20,8 @@ public class VendingMachineCLI {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				System.out.println("I'm in option 1");
-
+				VendingMachine display = new VendingMachine();
+				System.out.println(display.getSlots());
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println("I'm in option 2");
