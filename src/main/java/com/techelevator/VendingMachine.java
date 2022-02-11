@@ -10,7 +10,7 @@ import java.util.TreeMap;
 public class VendingMachine {
     private BigDecimal balance;
     private Map<String, Item> slots = new TreeMap<>();
-    
+
 
     public void restockMachine(String fileName) throws FileNotFoundException {
         File itemsFile = new File(fileName);
@@ -30,19 +30,27 @@ public class VendingMachine {
                 moneyInput.equals(BigDecimal.valueOf(5.0)) || moneyInput.equals(BigDecimal.valueOf(10.0))) {
             balance.add(moneyInput);
         } else {
-            return balance;
-        }
-        return moneyInput;
+
+        } return balance;
+
     }
     public String selectProductSlot(String inputtedItem) {
         Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
+        int count = item.getCount();
+        if (!inputtedItem.equals(item.getLocation())){
+        }
         if (inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
                 if (comparePrice >= 0) {
                     balance.subtract(item.getPrice());
-//                    item.getCount(--);
+                    count--;
+                    String printOut = item.getName() +", " + item.getPrice()+ ", " + balance;
+                    return printOut;
                 }
-            }
+
+
+                }
+
 
         }
 
