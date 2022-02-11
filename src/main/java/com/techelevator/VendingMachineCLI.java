@@ -30,7 +30,7 @@ public class VendingMachineCLI {
 				System.out.println("Please insert 1, 2, 5, or 10 dollars");
 
 				System.out.println("Please select product");
-				
+
 				// do purchase
 			}
 		}

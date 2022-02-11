@@ -35,21 +35,24 @@ public class Purchase {
     public void selectProduct() {
         Scanner selectedItem = new Scanner(System.in);
         String inputtedItem = selectedItem.nextLine();
+        Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
 
-        Item item = new Item;
-        if (inputtedItem.equals(item.getLocation()){
-            int comparePrice = balance.compareTo(item.getPrice());
-            if (comparePrice>=0){
-                balance.subtract(item.getPrice());
-                item.getCount(--
-            } else
+        if (inputtedItem.equals(item.getLocation())) {
+            try {
+                int comparePrice = balance.compareTo(item.getPrice());
+
+                if (comparePrice >= 0) {
+                    balance.subtract(item.getPrice());
+                    item.getCount(--);
+                }
                 // get back to purchase menu
             } catch (Exception e) {
-            System.out.println("not enough balance");
+                System.out.println("not enough balance");
+            }
+
         }
-
     }
-
+}
 
 
 //        File itemsFile = new File(String.valueOf(fileName));
@@ -68,4 +71,3 @@ public class Purchase {
 //        }String inputLocation;
 //            if (!productLocation.equals(inputLocation)){
 //    }
-}
