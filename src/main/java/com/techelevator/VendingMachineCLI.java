@@ -50,9 +50,11 @@ public class VendingMachineCLI {
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
 				vendingMachine.selectProduct(inputtedItem);
+				System.out.println(vendingMachine.selectProductSlot(inputtedItem));
+				System.out.println("Current Money Provided: "+ vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
 				menuOptions = MAIN_MENU_OPTIONS;
-				System.out.println("Current Money Provided: "+ vendingMachine.getBalance());
+				System.out.println(vendingMachine.getBalance());
 
 			}
 		}

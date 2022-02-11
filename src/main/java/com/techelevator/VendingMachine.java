@@ -38,13 +38,29 @@ public class VendingMachine {
         Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
         int count = item.getCount();
         if (!inputtedItem.equals(item.getLocation())){
+            return "invalid slot";
         }
-        if (inputtedItem.equals(item.getLocation())) {
+        if (count == 0 ){
+            return "Sold out";
+        }
+        if (count >=0 && inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
                 if (comparePrice >= 0) {
                     balance.subtract(item.getPrice());
                     count--;
                     String printOut = item.getName() +", " + item.getPrice()+ ", " + balance;
+                    if (item.getType().equals("Chip")){
+                        return printOut += "Crunch, Crunch, Yum!";
+                    }
+                    if (item.getType().equals("Candy")){
+                        return printOut += "Munch, Munch, Yum!";
+                    }
+                    if (item.getType().equals("Drink")){
+                        return printOut += "Glug, Glug, Yum!";
+                    }
+                    if (item.getType().equals("Gum")){
+                        return printOut += "Chew, Chew, Yum!";
+                    }
                     return printOut;
                 }
 
@@ -52,6 +68,10 @@ public class VendingMachine {
                 }
 
 
+        }
+
+        public BigDecimal returnChange(){
+        return balance;
         }
 
     public Item selectProduct(String slotId){
