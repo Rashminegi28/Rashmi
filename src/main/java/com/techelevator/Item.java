@@ -40,6 +40,8 @@ public class Item {
     public String getType() {
         return type;
     }
+
+    public int getCount(){ return count; }
     // Setters
 
     public void setName(String name) {
