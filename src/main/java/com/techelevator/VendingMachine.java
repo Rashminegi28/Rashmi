@@ -11,7 +11,7 @@ import java.util.TreeMap;
 
 public class VendingMachine<Static> {
     private BigDecimal balance;
-    private Map<String, Item> slots = new HashMap<>();
+    private Map<String, Item> slots = new TreeMap<>();
 
     private static final BigDecimal QUARTERS = new BigDecimal("0.25");
     private static final BigDecimal DIMES =  new BigDecimal("0.1");
