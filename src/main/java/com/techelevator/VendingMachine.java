@@ -10,7 +10,7 @@ import java.util.Scanner;
 import java.util.TreeMap;
 
 public class VendingMachine<Static> {
-    private BigDecimal balance;
+    private BigDecimal balance = new BigDecimal("0.00");
     private Map<String, Item> slots = new TreeMap<>();
 
     private static final BigDecimal QUARTERS = new BigDecimal("0.25");
@@ -33,20 +33,23 @@ public class VendingMachine<Static> {
             }
         }
     }
+
     public Map<String, Item> getSlots() {
         return slots;
     }
-    public void currentMoneyProvided(BigDecimal moneyInput) {
+
+    public boolean currentMoneyProvided(BigDecimal moneyInput) {
+
         if (moneyInput.equals(new BigDecimal("1.00")) || moneyInput.equals(new BigDecimal("2.00")) ||
                 moneyInput.equals(new BigDecimal("5.00")) || moneyInput.equals(new BigDecimal("10.00"))) {
             balance.add(moneyInput);
+            return true;
         }
-
+        return false;
     }
 
-    public String selectProductSlot(Item inputtedItem) {
-        Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
-
+    public String selectProductSlot(String inputtedItem) {
+        Item item = slots.get(inputtedItem);
         int count = item.getCount();
         String printOut = "";
         if (!inputtedItem.equals(item.getLocation())) {

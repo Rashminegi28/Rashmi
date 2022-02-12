@@ -2,7 +2,9 @@ package com.techelevator;
 
 import com.techelevator.view.Menu;
 
+import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.Map;
 import java.util.Scanner;
 
 public class VendingMachineCLI {
@@ -25,13 +27,23 @@ public class VendingMachineCLI {
 
 	public void run() {
 		VendingMachine vendingMachine = new VendingMachine();
+
+		try {
+			vendingMachine.restockMachine("vendingmachine.csv");
+		} catch (FileNotFoundException e) {
+			System.out.println("File not found"+ e.getMessage());
+		}
 		boolean exit = false;
 		while (!exit) {
 			String choice = (String) menu.getChoiceFromOptions(menuOptions);
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				System.out.println("I'm in option 1");
-				System.out.println(vendingMachine.getSlots());
+//				System.out.println(vendingMachine.getSlots());
+				Map slots = vendingMachine.getSlots();
+				for (Map.Entry<String,Item> entry : slots.entrySet()){
+
+				}
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println("I'm in option 2");
@@ -42,13 +54,17 @@ public class VendingMachineCLI {
 				exit = true;
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
 				Scanner moneyScanner = new Scanner(System.in);
+				System.out.println("Please Enter Money:");
 				String inputtedMoney = moneyScanner.nextLine();
 				BigDecimal moneyInput = new BigDecimal(inputtedMoney);
-				vendingMachine.currentMoneyProvided(moneyInput);
+				if (!vendingMachine.currentMoneyProvided(moneyInput)){
+					System.out.println("Invalid Money Amount" + moneyInput);
+				}
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
-				vendingMachine.selectProductSlot(inputtedItem));
+				String outPut = vendingMachine.selectProductSlot(inputtedItem);
+				System.out.println(outPut);
 				System.out.println("Current Money Provided: " + vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
 				System.out.println(vendingMachine.returnChange());
