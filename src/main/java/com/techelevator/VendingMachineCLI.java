@@ -48,8 +48,7 @@ public class VendingMachineCLI {
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
-
-//				vendingMachine.selectProductSlot(vendingMachine.getSlots().get(inputtedItem));
+				vendingMachine.selectProductSlot(inputtedItem));
 				System.out.println("Current Money Provided: " + vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
 				System.out.println(vendingMachine.returnChange());
