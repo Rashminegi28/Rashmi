@@ -4,17 +4,22 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
 
 public class VendingMachine<Static> {
     private BigDecimal balance;
-    private Map<String, Item> slots = new TreeMap<>();
-    private final BigDecimal quarters = BigDecimal.valueOf(0.25);
-    private final BigDecimal dimes = BigDecimal.valueOf(0.1);
-    private final BigDecimal nickels = BigDecimal.valueOf(0.05);
+    private Map<String, Item> slots = new HashMap<>();
 
+    private static final BigDecimal QUARTERS = new BigDecimal("0.25");
+    private static final BigDecimal DIMES =  new BigDecimal("0.1");
+    private static final BigDecimal NICKELS = new BigDecimal("0.05");
+
+    public VendingMachine(){
+
+    }
     public void restockMachine(String fileName) throws FileNotFoundException {
         File itemsFile = new File(fileName);
         if (itemsFile.exists()) {
@@ -22,7 +27,7 @@ public class VendingMachine<Static> {
                 while (scanner.hasNextLine()) {
                     String itemLine = scanner.nextLine();
                     String[] newItemInfo = itemLine.split("\\|");
-                    Item item = new Item(newItemInfo[1], newItemInfo[3], newItemInfo[0], new BigDecimal(newItemInfo[2]), 5);
+                    Item item = new Item(newItemInfo[1], newItemInfo[3], newItemInfo[0], new BigDecimal(newItemInfo[2]));
                     slots.put(newItemInfo[0], item);
                 }
             }
@@ -32,15 +37,16 @@ public class VendingMachine<Static> {
         return slots;
     }
     public void currentMoneyProvided(BigDecimal moneyInput) {
-        if (moneyInput.equals(BigDecimal.valueOf(1.0)) || moneyInput.equals(BigDecimal.valueOf(2.0)) ||
-                moneyInput.equals(BigDecimal.valueOf(5.0)) || moneyInput.equals(BigDecimal.valueOf(10.0))) {
+        if (moneyInput.equals(new BigDecimal("1.00")) || moneyInput.equals(new BigDecimal("2.00")) ||
+                moneyInput.equals(new BigDecimal("5.00")) || moneyInput.equals(new BigDecimal("10.00"))) {
             balance.add(moneyInput);
         }
 
     }
 
-    public String selectProductSlot(String inputtedItem) {
+    public String selectProductSlot(Item inputtedItem) {
         Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
+
         int count = item.getCount();
         String printOut = "";
         if (!inputtedItem.equals(item.getLocation())) {
@@ -64,27 +70,27 @@ public class VendingMachine<Static> {
                 } else if (item.getType().equals("Gum")) {
                     return printOut += "Chew, Chew, Yum!";
                 }
-                
+
             }
         } return printOut;
     }
 
     public String returnChange() {
         BigDecimal change = balance;
-        BigDecimal[] quarterChange = change.divideAndRemainder(BigDecimal.valueOf(.25));
+        BigDecimal[] quarterChange = change.divideAndRemainder(QUARTERS);
         String numQuarters = quarterChange[0].toString();
-        BigDecimal[] dimeChange = quarterChange[1].divideAndRemainder(BigDecimal.valueOf(.10));
+        BigDecimal[] dimeChange = quarterChange[1].divideAndRemainder(DIMES);
         String numDime = dimeChange[0].toString();
-        BigDecimal nickelChange = dimeChange[1].divide(BigDecimal.valueOf(.05), RoundingMode.DOWN);
+        BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
-        balance.equals(BigDecimal.valueOf(0.0));
+        balance.equals(BigDecimal.ZERO);
         String totalChange = numQuarters + " quarters " + numDime + " Dimes" + numNickel + " nickels";
         return totalChange;
         }
 
-    public Item selectProduct(String slotId){
-        return slots.get(slotId);
-    }
+//    public Item selectProduct(String slotId){
+//        return slots.get(slotId);
+//    }
 
     public BigDecimal getBalance() {
         return balance;

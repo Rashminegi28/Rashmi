@@ -15,12 +15,12 @@ public class Item {
     private int count;
 
 
-    public Item(String name, String type, String location, BigDecimal price, int count){
+    public Item(String name, String type, String location, BigDecimal price){
         this.name = name;
         this.type= type;
         this.location = location;
         this.price= price;
-        this.count = count;
+        this.count = 5;
 
 
     }

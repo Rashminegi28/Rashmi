@@ -31,8 +31,7 @@ public class VendingMachineCLI {
 
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				System.out.println("I'm in option 1");
-				VendingMachine display = new VendingMachine();
-				System.out.println(display.getSlots());
+				System.out.println(vendingMachine.getSlots());
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println("I'm in option 2");
@@ -44,13 +43,13 @@ public class VendingMachineCLI {
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
 				Scanner moneyScanner = new Scanner(System.in);
 				String inputtedMoney = moneyScanner.nextLine();
-				BigDecimal moneyInput = BigDecimal.valueOf(Long.parseLong(inputtedMoney));
+				BigDecimal moneyInput = new BigDecimal(inputtedMoney);
 				vendingMachine.currentMoneyProvided(moneyInput);
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
-				vendingMachine.selectProduct(inputtedItem);
-				System.out.println(vendingMachine.selectProductSlot(inputtedItem));
+
+//				vendingMachine.selectProductSlot(vendingMachine.getSlots().get(inputtedItem));
 				System.out.println("Current Money Provided: " + vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
 				System.out.println(vendingMachine.returnChange());
