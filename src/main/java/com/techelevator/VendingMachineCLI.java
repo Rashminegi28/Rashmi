@@ -40,11 +40,7 @@ public class VendingMachineCLI {
 			if (choice.equals(MAIN_MENU_OPTION_DISPLAY_ITEMS)) {
 				System.out.println("I'm in option 1");
 //				System.out.println(vendingMachine.getSlots());
-				Map slots = vendingMachine.getSlots();
-//				System.out.println(slots.keySet());
-//				for ( Map<String,Item> entries: slots.entrySet()){
-					System.out.println(vendingMachine.getSlots());
-//				}
+				displayItems(vendingMachine);
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println("I'm in option 2");
@@ -62,7 +58,8 @@ public class VendingMachineCLI {
 					System.out.println("Invalid Money Amount" + moneyInput);
 				}
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
-				System.out.println(vendingMachine.getSlots());
+				displayItems(vendingMachine);
+				System.out.println("Please enter slot number");
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
 				String outPut = vendingMachine.selectProductSlot(inputtedItem);
@@ -74,6 +71,14 @@ public class VendingMachineCLI {
 
 
 			}
+		}
+	}
+
+	private void displayItems(VendingMachine vendingMachine) {
+		Map<String,Item> slots = vendingMachine.getSlots();
+//
+		for (Map.Entry<String, Item> entry : slots.entrySet()) {
+			System.out.println(entry.getKey()+" " + entry.getValue().getName()+ " "+ entry.getValue().getPrice()+ " " + entry.getValue().getCount());
 		}
 	}
 

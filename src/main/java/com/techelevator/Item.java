@@ -60,5 +60,7 @@ public class Item {
         this.type = type;
     }
 
-
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

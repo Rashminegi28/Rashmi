@@ -42,7 +42,7 @@ public class VendingMachine<Static> {
 
         if (moneyInput.equals(new BigDecimal("1.00")) || moneyInput.equals(new BigDecimal("2.00")) ||
                 moneyInput.equals(new BigDecimal("5.00")) || moneyInput.equals(new BigDecimal("10.00"))) {
-            balance.add(moneyInput);
+            balance = balance.add(moneyInput);
             return true;
         }
         return false;
@@ -61,8 +61,8 @@ public class VendingMachine<Static> {
         if (count >= 0 && inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
             if (comparePrice >= 0) {
-                balance.subtract(item.getPrice());
-                count--;
+                balance = balance.subtract(item.getPrice());
+                item.setCount(--count);
                    printOut = item.getName() + ", " + item.getPrice() + ", " + balance;
                 if (item.getType().equals("Chip")) {
                     return printOut += "Crunch, Crunch, Yum!";
@@ -74,6 +74,8 @@ public class VendingMachine<Static> {
                     return printOut += "Chew, Chew, Yum!";
                 }
 
+            } else {
+                printOut = "Not enough Money";
             }
         } return printOut;
     }
@@ -86,7 +88,7 @@ public class VendingMachine<Static> {
         String numDime = dimeChange[0].toString();
         BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
-        balance.equals(BigDecimal.ZERO);
+        balance=BigDecimal.ZERO;
         String totalChange = numQuarters + " quarters " + numDime + " Dimes " + numNickel + " nickels";
         return totalChange;
         }
