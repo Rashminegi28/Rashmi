@@ -28,7 +28,9 @@ public class VendingMachine<Static> {
             }
         }
     }
-
+    public Map<String, Item> getSlots() {
+        return slots;
+    }
     public void currentMoneyProvided(BigDecimal moneyInput) {
         if (moneyInput.equals(BigDecimal.valueOf(1.0)) || moneyInput.equals(BigDecimal.valueOf(2.0)) ||
                 moneyInput.equals(BigDecimal.valueOf(5.0)) || moneyInput.equals(BigDecimal.valueOf(10.0))) {
@@ -62,7 +64,7 @@ public class VendingMachine<Static> {
                 } else if (item.getType().equals("Gum")) {
                     return printOut += "Chew, Chew, Yum!";
                 }
-
+                
             }
         } return printOut;
     }
@@ -83,9 +85,7 @@ public class VendingMachine<Static> {
     public Item selectProduct(String slotId){
         return slots.get(slotId);
     }
-    public Map<String, Item> getSlots() {
-        return slots;
-    }
+
     public BigDecimal getBalance() {
         return balance;
     }
