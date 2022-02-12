@@ -87,7 +87,7 @@ public class VendingMachine<Static> {
         BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
         balance.equals(BigDecimal.ZERO);
-        String totalChange = numQuarters + " quarters " + numDime + " Dimes" + numNickel + " nickels";
+        String totalChange = numQuarters + " quarters " + numDime + " Dimes " + numNickel + " nickels";
         return totalChange;
         }
 

@@ -41,9 +41,10 @@ public class VendingMachineCLI {
 				System.out.println("I'm in option 1");
 //				System.out.println(vendingMachine.getSlots());
 				Map slots = vendingMachine.getSlots();
-				for (Map.Entry<String,Item> entry : slots.entrySet()){
-
-				}
+//				System.out.println(slots.keySet());
+//				for ( Map<String,Item> entries: slots.entrySet()){
+					System.out.println(vendingMachine.getSlots());
+//				}
 				// display vending machine items
 			} else if (choice.equals(MAIN_MENU_OPTION_PURCHASE)) {
 				System.out.println("I'm in option 2");
