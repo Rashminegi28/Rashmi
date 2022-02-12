@@ -62,6 +62,7 @@ public class VendingMachineCLI {
 					System.out.println("Invalid Money Amount" + moneyInput);
 				}
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
+				System.out.println(vendingMachine.getSlots());
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
 				String outPut = vendingMachine.selectProductSlot(inputtedItem);
