@@ -15,7 +15,6 @@ public class VendingMachine<Static> {
     private final BigDecimal dimes = BigDecimal.valueOf(0.1);
     private final BigDecimal nickels = BigDecimal.valueOf(0.05);
 
-
     public void restockMachine(String fileName) throws FileNotFoundException {
         File itemsFile = new File(fileName);
         if (itemsFile.exists()) {
@@ -30,48 +29,42 @@ public class VendingMachine<Static> {
         }
     }
 
-    public BigDecimal currentMoneyProvided(BigDecimal moneyInput) {
+    public void currentMoneyProvided(BigDecimal moneyInput) {
         if (moneyInput.equals(BigDecimal.valueOf(1.0)) || moneyInput.equals(BigDecimal.valueOf(2.0)) ||
                 moneyInput.equals(BigDecimal.valueOf(5.0)) || moneyInput.equals(BigDecimal.valueOf(10.0))) {
             balance.add(moneyInput);
-        } else {
-
         }
-        return balance;
 
     }
 
     public String selectProductSlot(String inputtedItem) {
         Item item = new Item(item.getName(), item.getType(), item.getLocation(), item.getPrice(), item.getCount());
         int count = item.getCount();
-
+        String printOut = "";
         if (!inputtedItem.equals(item.getLocation())) {
-            return "invalid slot";
+            printOut = "invalid slot";
         }
         if (count == 0) {
-            return "Sold out";
+            printOut = "Sold out";
         }
         if (count >= 0 && inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
             if (comparePrice >= 0) {
                 balance.subtract(item.getPrice());
                 count--;
-                  String printOut = item.getName() + ", " + item.getPrice() + ", " + balance;
+                   printOut = item.getName() + ", " + item.getPrice() + ", " + balance;
                 if (item.getType().equals("Chip")) {
                     return printOut += "Crunch, Crunch, Yum!";
-                }
-                if (item.getType().equals("Candy")) {
+                } else if (item.getType().equals("Candy")) {
                     return printOut += "Munch, Munch, Yum!";
-                }
-                if (item.getType().equals("Drink")) {
+                }else if (item.getType().equals("Drink")) {
                     return printOut += "Glug, Glug, Yum!";
-                }
-                if (item.getType().equals("Gum")) {
+                } else if (item.getType().equals("Gum")) {
                     return printOut += "Chew, Chew, Yum!";
                 }
-                return printOut;
+
             }
-        }
+        } return printOut;
     }
 
     public String returnChange() {
