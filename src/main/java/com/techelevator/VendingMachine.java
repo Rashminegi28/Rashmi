@@ -1,10 +1,9 @@
 package com.techelevator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
+import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -18,7 +17,6 @@ public class VendingMachine<Static> {
     private static final BigDecimal NICKELS = new BigDecimal("0.05");
 
     public VendingMachine(){
-
     }
     public void restockMachine(String fileName) throws FileNotFoundException {
         File itemsFile = new File(fileName);
@@ -33,22 +31,21 @@ public class VendingMachine<Static> {
             }
         }
     }
-
     public Map<String, Item> getSlots() {
         return slots;
     }
-
-    public boolean currentMoneyProvided(BigDecimal moneyInput) {
+    public boolean currentMoneyProvided(BigDecimal moneyInput) throws FileNotFoundException {
 
         if (moneyInput.equals(new BigDecimal("1.00")) || moneyInput.equals(new BigDecimal("2.00")) ||
                 moneyInput.equals(new BigDecimal("5.00")) || moneyInput.equals(new BigDecimal("10.00"))) {
             balance = balance.add(moneyInput);
+            Logger logger = new Logger();
+            logger.logToFile(logger.getDateTime()," FEED MONEY $" + moneyInput +" $"+ balance);
             return true;
         }
         return false;
     }
-
-    public String selectProductSlot(String inputtedItem) {
+    public String selectProductSlot(String inputtedItem) throws FileNotFoundException {
         Item item = slots.get(inputtedItem);
         int count = item.getCount();
         String printOut = "";
@@ -61,17 +58,19 @@ public class VendingMachine<Static> {
         if (count >= 0 && inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
             if (comparePrice >= 0) {
+                Logger logger = new Logger();
+                logger.logToFile(logger.getDateTime()," " + item.getName() +" "+item.getLocation()+" $" + balance + " $" + balance.subtract(item.getPrice()));
                 balance = balance.subtract(item.getPrice());
                 item.setCount(--count);
                    printOut = item.getName() + ", " + item.getPrice() + ", " + balance;
                 if (item.getType().equals("Chip")) {
-                    return printOut += "Crunch, Crunch, Yum!";
+                    return printOut += " Crunch, Crunch, Yum!";
                 } else if (item.getType().equals("Candy")) {
-                    return printOut += "Munch, Munch, Yum!";
+                    return printOut += " Munch, Munch, Yum!";
                 }else if (item.getType().equals("Drink")) {
-                    return printOut += "Glug, Glug, Yum!";
+                    return printOut += " Glug, Glug, Yum!";
                 } else if (item.getType().equals("Gum")) {
-                    return printOut += "Chew, Chew, Yum!";
+                    return printOut += " Chew, Chew, Yum!";
                 }
 
             } else {
@@ -79,8 +78,7 @@ public class VendingMachine<Static> {
             }
         } return printOut;
     }
-
-    public String returnChange() {
+    public String returnChange() throws FileNotFoundException {
         BigDecimal change = balance;
         BigDecimal[] quarterChange = change.divideAndRemainder(QUARTERS);
         String numQuarters = quarterChange[0].toString();
@@ -88,20 +86,13 @@ public class VendingMachine<Static> {
         String numDime = dimeChange[0].toString();
         BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
+        Logger logger = new Logger();
+        logger.logToFile(logger.getDateTime()," GIVE CHANGE  $" + balance + " $0.00");
         balance=BigDecimal.ZERO;
         String totalChange = numQuarters + " quarters " + numDime + " Dimes " + numNickel + " nickels";
         return totalChange;
         }
-
-//    public Item selectProduct(String slotId){
-//        return slots.get(slotId);
-//    }
-
     public BigDecimal getBalance() {
         return balance;
     }
-
-
-
-
 }

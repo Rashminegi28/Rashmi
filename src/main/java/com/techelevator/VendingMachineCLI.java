@@ -4,6 +4,7 @@ import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
+import java.util.IllegalFormatException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -25,7 +26,7 @@ public class VendingMachineCLI {
 		this.menu = menu;
 	}
 
-	public void run() {
+	public void run() throws FileNotFoundException {
 		VendingMachine vendingMachine = new VendingMachine();
 
 		try {
@@ -51,20 +52,25 @@ public class VendingMachineCLI {
 				exit = true;
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
 				Scanner moneyScanner = new Scanner(System.in);
-				System.out.println("Please Enter Money:");
+				System.out.println("Please Deposit Money:");
 				String inputtedMoney = moneyScanner.nextLine();
 				BigDecimal moneyInput = new BigDecimal(inputtedMoney);
 				if (!vendingMachine.currentMoneyProvided(moneyInput)){
 					System.out.println("Invalid Money Amount" + moneyInput);
 				}
-			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)){
+			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 				displayItems(vendingMachine);
 				System.out.println("Please enter slot number");
 				Scanner selectedItem = new Scanner(System.in);
 				String inputtedItem = selectedItem.nextLine();
-				String outPut = vendingMachine.selectProductSlot(inputtedItem);
+				String outPut = null;
+				try {
+					outPut = vendingMachine.selectProductSlot(inputtedItem);
+				} catch (NullPointerException e) {
+					System.out.println("Invalid input" + e.getMessage());
+				}
 				System.out.println(outPut);
-				System.out.println("Current Money Provided: " + vendingMachine.getBalance());
+				System.out.println("Current Balance: " + vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
 				System.out.println(vendingMachine.returnChange());
 				menuOptions = MAIN_MENU_OPTIONS;
@@ -82,7 +88,7 @@ public class VendingMachineCLI {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws FileNotFoundException {
 		Menu menu = new Menu(System.in, System.out);
 		VendingMachineCLI cli = new VendingMachineCLI(menu);
 		cli.run();
