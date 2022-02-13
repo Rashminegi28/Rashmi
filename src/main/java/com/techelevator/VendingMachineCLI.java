@@ -4,7 +4,6 @@ import com.techelevator.view.Menu;
 
 import java.io.FileNotFoundException;
 import java.math.BigDecimal;
-import java.util.IllegalFormatException;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -50,13 +49,17 @@ public class VendingMachineCLI {
 				// do purchase
 			}else if (choice.equals(MAIN_MENU_OPTION_EXIT)){
 				exit = true;
-			}else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)){
-				Scanner moneyScanner = new Scanner(System.in);
-				System.out.println("Please Deposit Money:");
-				String inputtedMoney = moneyScanner.nextLine();
-				BigDecimal moneyInput = new BigDecimal(inputtedMoney);
-				if (!vendingMachine.currentMoneyProvided(moneyInput)){
-					System.out.println("Invalid Money Amount" + moneyInput);
+			}else if (choice.equals(PURCHASE_MENU_OPTION_FEED_MONEY)) {
+				try {
+					Scanner moneyScanner = new Scanner(System.in);
+					System.out.println("Please Deposit Money:");
+					String inputtedMoney = moneyScanner.nextLine();
+					BigDecimal moneyInput = new BigDecimal(inputtedMoney);
+					if (!vendingMachine.currentMoneyProvided(moneyInput)) {
+						System.out.println("Invalid Money Amount" + moneyInput);
+					}
+				} catch (NumberFormatException e) {
+					System.out.println("Invalid Amount " + e.getMessage());
 				}
 			}else if (choice.equals(PURCHASE_MENU_OPTION_SELECT_PRODUCT)) {
 				displayItems(vendingMachine);
@@ -72,7 +75,7 @@ public class VendingMachineCLI {
 				System.out.println(outPut);
 				System.out.println("Current Balance: " + vendingMachine.getBalance());
 			}else if (choice.equals(PURCHASE_MENU_OPTION_FINISH_TRANSACTION)){
-				System.out.println(vendingMachine.returnChange());
+				System.out.println(vendingMachine.returnChange(vendingMachine.getBalance()));
 				menuOptions = MAIN_MENU_OPTIONS;
 
 

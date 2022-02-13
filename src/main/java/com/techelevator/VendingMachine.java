@@ -78,8 +78,8 @@ public class VendingMachine<Static> {
             }
         } return printOut;
     }
-    public String returnChange() throws FileNotFoundException {
-        BigDecimal change = balance;
+    public String returnChange(BigDecimal balance) throws FileNotFoundException {
+        BigDecimal change = this.balance;
         BigDecimal[] quarterChange = change.divideAndRemainder(QUARTERS);
         String numQuarters = quarterChange[0].toString();
         BigDecimal[] dimeChange = quarterChange[1].divideAndRemainder(DIMES);
@@ -87,8 +87,8 @@ public class VendingMachine<Static> {
         BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
         Logger logger = new Logger();
-        logger.logToFile(logger.getDateTime()," GIVE CHANGE  $" + balance + " $0.00");
-        balance=BigDecimal.ZERO;
+        logger.logToFile(logger.getDateTime()," GIVE CHANGE  $" + this.balance + " $0.00");
+        this.balance =BigDecimal.ZERO;
         String totalChange = numQuarters + " quarters " + numDime + " Dimes " + numNickel + " nickels";
         return totalChange;
         }
