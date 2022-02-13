@@ -10,19 +10,23 @@ import java.util.Date;
 
 
     public class Log {
+        private String text;
+
         public void main(String args[]) throws FileNotFoundException {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MM.dd.yyyy; HH:mm:ss a");
 
 
             File loggedInfo = new File("C:\\Users\\Student\\workspace\\java-capstone-module-1-team-3\\target\\Log.txt");
-            PrintWriter writer = new PrintWriter("Log.txt");
+
             try {
                 loggedInfo.createNewFile();
             } catch (IOException e) {
                 System.out.println("file does not exist" + e.getMessage());
             }
-            public void writeToLog(){
-                writer.println(dateFormat);
+            PrintWriter writer = new PrintWriter("Log.txt");
+            public void writeToLog(PrintWriter writer){
+                text = "";
+                writer.println(dateFormat + text);
             }
         }
     }
