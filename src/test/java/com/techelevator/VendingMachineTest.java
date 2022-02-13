@@ -36,9 +36,9 @@ public class VendingMachineTest extends TestCase {
     }
 
     public void testReturnChange() throws FileNotFoundException {
-//        VendingMachine vending = new VendingMachine();
-//        BigDecimal balance = new BigDecimal("1.00");
-//        assertEquals("4 quarters, 0.00 dimes, 0.00 nickels", vending.returnChange(balance));
+        VendingMachine vending = new VendingMachine();
+        BigDecimal balance = new BigDecimal("1.00");
+        assertEquals("4 quarters, 0.00 dimes, 0.00 nickels", vending.returnChange(new BigDecimal ("1.00")));
     }
 //
     public void testGetBalance() {
