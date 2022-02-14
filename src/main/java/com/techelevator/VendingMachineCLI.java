@@ -55,7 +55,7 @@ public class VendingMachineCLI {
 					System.out.println("Please Deposit Money:");
 					String inputtedMoney = moneyScanner.nextLine();
 					BigDecimal moneyInput = new BigDecimal(inputtedMoney);
-					if (!vendingMachine.currentMoneyProvided(moneyInput)) {
+					if (!vendingMachine.currentMoneyDeposited(moneyInput)) {
 						System.out.println("Invalid Money Amount" + moneyInput);
 					}
 				} catch (NumberFormatException e) {
@@ -68,7 +68,7 @@ public class VendingMachineCLI {
 				String inputtedItem = selectedItem.nextLine();
 				String outPut = null;
 				try {
-					outPut = vendingMachine.selectProductSlot(inputtedItem);
+					outPut = vendingMachine.selectProduct(inputtedItem);
 				} catch (NullPointerException e) {
 					System.out.println("Invalid input" + e.getMessage());
 				}

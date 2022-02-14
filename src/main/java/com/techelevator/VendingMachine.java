@@ -34,7 +34,7 @@ public class VendingMachine<Static> {
     public Map<String, Item> getSlots() {
         return slots;
     }
-    public boolean currentMoneyProvided(BigDecimal moneyInput) throws FileNotFoundException {
+    public boolean currentMoneyDeposited(BigDecimal moneyInput) throws FileNotFoundException {
 
         if (moneyInput.equals(new BigDecimal("1.00")) || moneyInput.equals(new BigDecimal("2.00")) ||
                 moneyInput.equals(new BigDecimal("5.00")) || moneyInput.equals(new BigDecimal("10.00"))) {
@@ -45,7 +45,7 @@ public class VendingMachine<Static> {
         }
         return false;
     }
-    public String selectProductSlot(String inputtedItem) throws FileNotFoundException {
+    public String selectProduct(String inputtedItem) throws FileNotFoundException {
         Item item = slots.get(inputtedItem);
         int count = item.getCount();
         String printOut = "";
@@ -79,7 +79,7 @@ public class VendingMachine<Static> {
         } return printOut;
     }
     public String returnChange(BigDecimal balance) throws FileNotFoundException {
-        BigDecimal change = this.balance;
+        BigDecimal change = balance;
         BigDecimal[] quarterChange = change.divideAndRemainder(QUARTERS);
         String numQuarters = quarterChange[0].toString();
         BigDecimal[] dimeChange = quarterChange[1].divideAndRemainder(DIMES);
@@ -87,9 +87,9 @@ public class VendingMachine<Static> {
         BigDecimal nickelChange = dimeChange[1].divide(NICKELS, RoundingMode.DOWN);
         String numNickel = nickelChange.toString();
         Logger logger = new Logger();
-        logger.logToFile(logger.getDateTime()," GIVE CHANGE  $" + this.balance + " $0.00");
-        this.balance =BigDecimal.ZERO;
-        String totalChange = numQuarters + " quarters " + numDime + " Dimes " + numNickel + " nickels";
+        logger.logToFile(logger.getDateTime()," GIVE CHANGE  $" + balance + " $0.00");
+        balance =BigDecimal.ZERO;
+        String totalChange = numQuarters + " quarters " + numDime + " dimes " + numNickel + " nickels";
         return totalChange;
         }
     public BigDecimal getBalance() {

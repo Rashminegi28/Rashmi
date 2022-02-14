@@ -18,7 +18,7 @@ public class Logger {
     public SimpleDateFormat getDateFormat() {
         return dateFormat;
     }
-    public String getText() {
+    public String getText(String text) {
         return text;
     }
 

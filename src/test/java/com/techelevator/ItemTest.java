@@ -27,14 +27,30 @@ public class ItemTest extends TestCase {
     }
 
     public void testTestSetName() {
+        String expected = "Lays";
+        Item item = new Item ();
+        item.setName(expected);
+        assertEquals(item.getName(), expected);
     }
 
     public void testSetLocation() {
+        String expected = "A1";
+        Item item = new Item ();
+        item.setLocation(expected);
+        assertEquals(item.getLocation(), expected);
     }
 
     public void testSetPrice() {
+        BigDecimal expected = new BigDecimal("1.00");
+        Item item = new Item ();
+        item.setPrice(expected);
+        assertEquals(item.getPrice(), expected);
     }
 
     public void testSetType() {
+        String expected = "chip";
+        Item item = new Item ();
+        item.setType(expected);
+        assertEquals(item.getType(), expected);
     }
 }

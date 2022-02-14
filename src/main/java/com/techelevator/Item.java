@@ -24,7 +24,12 @@ public class Item {
 
 
     }
-//Getters
+
+    public Item() {
+
+    }
+
+    //Getters
     public String getName() {
         return name;
     }
