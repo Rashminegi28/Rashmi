@@ -46,7 +46,7 @@ public class Item {
         return type;
     }
 
-    public int getCount(){ return count; }
+    public int getCount(int i){ return count; }
     // Setters
 
     public void setName(String name) {

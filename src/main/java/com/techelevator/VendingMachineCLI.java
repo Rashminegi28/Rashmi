@@ -70,7 +70,7 @@ public class VendingMachineCLI {
 				try {
 					outPut = vendingMachine.selectProduct(inputtedItem);
 				} catch (NullPointerException e) {
-					System.out.println("Invalid input" + e.getMessage());
+					System.out.println("Invalid input " + e.getMessage());
 				}
 				System.out.println(outPut);
 				System.out.println("Current Balance: " + vendingMachine.getBalance());
@@ -87,7 +87,7 @@ public class VendingMachineCLI {
 		Map<String,Item> slots = vendingMachine.getSlots();
 //
 		for (Map.Entry<String, Item> entry : slots.entrySet()) {
-			System.out.println(entry.getKey()+" " + entry.getValue().getName()+ " "+ entry.getValue().getPrice()+ " " + entry.getValue().getCount());
+			System.out.println(entry.getKey()+" " + entry.getValue().getName()+ " "+ entry.getValue().getPrice()+ " " + entry.getValue().getCount(0));
 		}
 	}
 

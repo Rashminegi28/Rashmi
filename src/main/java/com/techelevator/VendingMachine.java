@@ -3,7 +3,6 @@ package com.techelevator;
 import java.io.*;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.SimpleDateFormat;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.TreeMap;
@@ -47,7 +46,7 @@ public class VendingMachine<Static> {
     }
     public String selectProduct(String inputtedItem) throws FileNotFoundException {
         Item item = slots.get(inputtedItem);
-        int count = item.getCount();
+        int count = item.getCount(0);
         String printOut = "";
         if (!inputtedItem.equals(item.getLocation())) {
             printOut = "invalid slot";
@@ -55,7 +54,7 @@ public class VendingMachine<Static> {
         if (count == 0) {
             printOut = "Sold out";
         }
-        if (count >= 0 && inputtedItem.equals(item.getLocation())) {
+        if (count >= 1 && inputtedItem.equals(item.getLocation())) {
             int comparePrice = balance.compareTo(item.getPrice());
             if (comparePrice >= 0) {
                 Logger logger = new Logger();
@@ -74,7 +73,7 @@ public class VendingMachine<Static> {
                 }
 
             } else {
-                printOut = "Not enough Money";
+                printOut = "Not Enough Money";
             }
         } return printOut;
     }

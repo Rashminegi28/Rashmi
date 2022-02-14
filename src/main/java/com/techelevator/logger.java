@@ -1,7 +1,6 @@
 package com.techelevator;
 
 import java.io.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -16,9 +15,6 @@ public class Logger {
     public Logger(){
     }
 
-    public String getText(String text) {
-        return text;
-    }
 
     public String getDateTime() {
         return dateTime;
